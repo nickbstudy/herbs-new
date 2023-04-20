@@ -13,7 +13,9 @@ function App() {
     <>
       <Router>
         <div className="container">
-          <Header />
+          <div className="headerContainer">
+            <Header />
+          </div>
           <Routes>
             <Route path='/' element={<Dashboard />} />
             <Route path='/login' element={<Login />} />
