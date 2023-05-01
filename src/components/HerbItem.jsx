@@ -1,8 +1,12 @@
 import {useState} from 'react'
+import { useDispatch } from 'react-redux';
+import { changeAmount } from '../features/herbs/herbSlice';
 
-function HerbItem({herb}) {
+function HerbItem({herb, herbID}) {
 
     const [amount, setAmount] = useState(herb.amount)
+
+    const dispatch = useDispatch();
 
     let expiryString;
     switch(herb.expiry.substr(5, 2)) {
@@ -54,11 +58,13 @@ function HerbItem({herb}) {
     const daysBetween = Math.ceil(difference / (1000 * 3600 * 24))
     
     let herbColor = "rgb(183, 238, 177)"
+    let textColor = "black"
 
     // 1m to expiry: rgb(245, 171, 167)
     // 12+m to expiry: rgb(183, 238, 177) 
     if(daysBetween < 15) {
-        herbColor = "rgb(255, 110, 110)"
+        textColor = "rgb(240, 240, 240)"
+        herbColor = "rgb(178, 34, 34)"
     } else if (daysBetween < 45 && daysBetween >=15) {
         herbColor = "rgb(236, 177, 168)"
     } else if (daysBetween < 75 && daysBetween >= 5) {
@@ -81,17 +87,16 @@ function HerbItem({herb}) {
         herbColor = "rgb(183, 238, 177)"
     }   
     
-
-    const onChangeAmount = (e) => {
-        setAmount(e.target.value)
+    const commitAmount = () => {
+        dispatch(changeAmount({herbID: herbID, newAmount: amount}))
     }
 
   return (
-    <div className="herb" style={{background: herbColor}}>
+    <div className="herb" style={{background: herbColor, color: textColor}}>
         <div className="title"><p>{herb.name}</p></div>
         <p>Expiry: {expiryString}</p>
         <p className="amount">Amount:</p>
-        <input type="range" class="slider" name="amount" id="amount" value={amount} onChange={onChangeAmount} min='1' max='100' />
+        <input type="range" className="slider" name="amount" id="amount" value={amount} onChange={(e) => setAmount(e.target.value)} onMouseUp={commitAmount} min='1' max='100' />
     </div>
   )
 }

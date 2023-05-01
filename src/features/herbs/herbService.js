@@ -14,8 +14,34 @@ const getHerbs = async (token) => {
     return response.data
 }
 
+// Add herb
+const addHerb = async (herbData, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const response = await axios.post(API_URL, herbData, config)
+
+    return response.data
+}
+
+// Update amount - PATCH /herbs/api/:id - value: newAmount
+const changeAmount = async (herbData, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const response = await axios.patch(`${API_URL}${herbData.herbID}`, {newAmount: herbData.newAmount}, config)
+
+    return response.data
+}
+
 const herbService = {
-    getHerbs
+    getHerbs,
+    addHerb,
+    changeAmount
 }
 
 export default herbService

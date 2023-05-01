@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react'
-import {FaSignInAlt, FaSignOutAlt, FaUser, FaRegPlusSquare, FaSearch } from 'react-icons/fa'
+import { useState } from 'react'
+import {FaSignInAlt, FaSignOutAlt, FaUser, FaRegPlusSquare } from 'react-icons/fa'
 import {Link} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
+import { addHerb } from '../features/herbs/herbSlice'
 
 function Header() {
 
     const [search, setSearch] = useState('')
+    const [newName, setNewName] = useState('')
+    const [newExpiry, setNewExpiry] = useState('')
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { user } = useSelector((state) => state.auth)
@@ -20,12 +23,29 @@ function Header() {
         setSearch("")
     }
 
-    const addHerb = () => {
+    const openAddHerb = () => {
         const modal = document.getElementById('modal')
         modal.showModal()
     }
-    const closeModal = () => {
+    const handleAddHerb = (e) => {
+        e.preventDefault();
+        if (newName === "") {
+            alert("Please enter a name for the new herb")
+            return;
+        }
+        if (newExpiry === "") {
+            alert("Please enter an expiry date")
+            return;
+        }
         const modal = document.getElementById('modal')
+
+        const herbData = {herbName: newName, expiryDate: `${newExpiry}-15`}
+        console.log(herbData)
+        dispatch(addHerb(herbData))
+
+        setNewExpiry("")
+        setNewName("")
+        
         modal.close()
     }
 
@@ -44,7 +64,7 @@ function Header() {
                     {user ? <span style={{display: 'flex'}}>
                        <input type="text" placeholder="🔎 Search..." onChange={onChangeSearch} value={search} style={{height: "40px", width: '230px', fontSize: '1.4rem', marginLeft: '10px', padding: '4px'}}/>
                        <button onClick={clearSearch} style={{marginLeft: '10px', dataInline: true, height: '35px', width: '35px', borderRadius: '50%', backgroundColor: 'black', color: 'white', fontSize: '0.8em', fontWeight: 800}}>✕</button>
-                       <button className="btn" style={{dataInline: true, transform: 'translate(0px, -3px)', marginLeft: '30px'}} onClick={addHerb}><FaRegPlusSquare />　Add Herb</button>
+                       <button className="btn" style={{dataInline: true, transform: 'translate(0px, -3px)', marginLeft: '20px'}} onClick={openAddHerb}><FaRegPlusSquare />　Add Herb</button>
                         </span> : <p></p>}
                     
             </div>
@@ -76,8 +96,14 @@ function Header() {
 
         </header>
         <dialog name="modal" id="modal">
-            test
-            <button onClick={closeModal}>Cancel</button>
+            <form>
+                <div><label htmlFor="newName">Herb name:</label><br />
+                <input type="text" name="newName" id="newName" value={newName} onChange={(e) => setNewName(e.target.value)}/></div>
+                <div><label htmlFor="newExpiry">Expiry:</label><br />
+                <input type="month" name="newExpiry" id="newExpiry" value={newExpiry} onChange={(e) => setNewExpiry(e.target.value)}/></div>
+                <button type="submit" onClick={handleAddHerb}>Add Herb</button>
+            </form>
+            
         </dialog>
     </>
   )

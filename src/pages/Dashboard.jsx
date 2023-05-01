@@ -33,10 +33,10 @@ function Dashboard() {
   return ( 
   <>
     <section>
-      {herbs.length > 0 ? (
+      {herbs.length > 0 && user ? (
         <div className="herbs" style={{display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
           {herbs.map((herb) => (
-            <HerbItem key={herb._id} herb={herb} />
+            <HerbItem key={herb._id} herbID={herb._id} herb={herb} />
           ))}
         </div>
       ) : (<h3>You have not added any herbs yet</h3>)}

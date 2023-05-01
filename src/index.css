@@ -67,7 +67,7 @@ h3 {
 
 .header {
     display: flex;
-    max-width: 1080px;
+    max-width: 1200px;
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
@@ -155,8 +155,17 @@ h3 {
     position: absolute;
     top: calc(50vh - 200px);
     left: calc(50vw - 150px);
-    height: 400px;
+    height: 200px;
     width: 300px;
+}
+#modal label {
+    font-size: 1.4rem;
+    padding-top: 20px;
+}
+#modal input {
+    width: 220px;
+    text-align: center;
+    font-size: 1.2rem;
 }
 
 .herb {
