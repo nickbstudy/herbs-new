@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import HerbItem from '../components/HerbItem'
 import Spinner from '../components/Spinner'
-import {getHerbs, reset} from '../features/herbs/herbSlice'
+import {getHerbs, reset, searchTerm} from '../features/herbs/herbSlice'
 
 function Dashboard() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  let herbsToShow = useSelector(searchTerm)
 
   const {user} = useSelector((state) => state.auth)
   const {herbs, isLoading, isError, message} = useSelector((state) => state.herbs)
@@ -20,10 +22,13 @@ function Dashboard() {
     if (!user) {
       navigate('/login')
     }
-    dispatch(getHerbs())
+    if (user) {
+      dispatch(getHerbs())
+    }
     return () => {
       dispatch(reset())
     }
+     
   }, [user, navigate, isError, message, dispatch])
 
   if(isLoading) {
@@ -34,10 +39,13 @@ function Dashboard() {
   <>
     <section>
       {herbs.length > 0 && user ? (
-        <div className="herbs" style={{display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
-          {herbs.map((herb) => (
-            <HerbItem key={herb._id} herbID={herb._id} herb={herb} />
-          ))}
+        <div className="herbs" style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(175px, 1fr)', rowGap: "8px"}}>
+          {herbs.map((herb) => {
+            if(herb.name.includes(herbsToShow)) {
+               return (<HerbItem key={herb._id} herbID={herb._id} herb={herb} />)
+            }
+            return;
+          })}
         </div>
       ) : (<h3>You have not added any herbs yet</h3>)}
     </section>

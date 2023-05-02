@@ -38,10 +38,24 @@ const changeAmount = async (herbData, token) => {
     return response.data
 }
 
+// Delete herb
+const deleteHerb = async (herbData, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const response = await axios.delete(`${API_URL}${herbData}`, config)
+
+    return response.data
+}
+
+
 const herbService = {
     getHerbs,
     addHerb,
-    changeAmount
+    changeAmount,
+    deleteHerb
 }
 
 export default herbService

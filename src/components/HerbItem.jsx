@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import { useDispatch } from 'react-redux';
 import { changeAmount } from '../features/herbs/herbSlice';
+import { deleteHerb } from '../features/herbs/herbSlice';
 
 function HerbItem({herb, herbID}) {
 
@@ -93,6 +94,7 @@ function HerbItem({herb, herbID}) {
 
   return (
     <div className="herb" style={{background: herbColor, color: textColor}}>
+        <button className="btnDelete" onClick={() => dispatch(deleteHerb(herbID))}>🗑</button>
         <div className="title"><p>{herb.name}</p></div>
         <p>Expiry: {expiryString}</p>
         <p className="amount">Amount:</p>

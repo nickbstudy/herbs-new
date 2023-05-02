@@ -41,7 +41,8 @@ body {
 
 
 .logo {
-    font-size: 1.7em;
+    font-size: 1.4em;
+    line-height: 1.3rem;
     font-weight: 600;
     text-shadow: 1px 1px 2px rgba(2, 132, 0, 0.3);
 }
@@ -67,12 +68,12 @@ h3 {
 
 .header {
     display: flex;
-    max-width: 1200px;
+    max-width: 1400px;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid #a3a3a3;
-    margin-bottom: 25px;
+    padding: 15px 0;
+    border-bottom: 3px solid #555555;
+    margin-bottom: 20px;
 }
 
   
@@ -107,7 +108,7 @@ h3 {
 }
   
 .heading p {
-    color: #828282;
+    color: #3f3f3f;
 }
 
 .formGroup {
@@ -167,15 +168,72 @@ h3 {
     text-align: center;
     font-size: 1.2rem;
 }
+.addContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 195px;
+}
+.modalButtons {
+    width: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.newAdd {
+    padding: 8px 16px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background: #095a00;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    appearance: button;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.newCancel {
+    padding: 8px 16px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background: #5a0000;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    appearance: button;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .herb {
     border: 2px solid #8c8c8c;
     border-radius: 6px;
     width: 170px;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.btnDelete {
+    font-size: 1.2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    color: rgb(255, 255, 255);
+    text-shadow: 0px 0px 2px black;
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .title {
